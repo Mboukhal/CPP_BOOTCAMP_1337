@@ -14,14 +14,9 @@ Bureaucrat::Bureaucrat ( Bureaucrat const& obj )
 }
 
 Bureaucrat::Bureaucrat ( std::string name, int grade )
-: _name(name) {
+: _name(name), _grade(grade) {
 	if (PRINT_CALLS)
 		std::cout << "Bureaucrat copy constractor called" << std::endl;
-	if ( grade >= LOW_GRADE )
-		throw GradeTooLowException();
-	if ( grade <= HIGH_GRADE )
-		throw GradeTooHighException();
-	this->_grade = grade;
 	return;
 }
 

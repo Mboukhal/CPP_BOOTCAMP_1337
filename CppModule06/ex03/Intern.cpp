@@ -3,7 +3,6 @@
 Intern::Intern ( void ) {
 	if (PRINT_CALLS)
 		std::cout << "Intern constractor called" << std::endl;
-	this->_res_allocated = false;
 	return;
 }
 
@@ -12,15 +11,10 @@ _formName( obj.getFName() ), _targetName( obj.getTName() )
 {
 	if (PRINT_CALLS)
 		std::cout << "Intern copy constractor called" << std::endl;
-	this->_res_allocated = false;
 	return;
 }
 
 Intern::~Intern ( void ) {
-	if ( this->_res_allocated ){
-		delete this->_res;
-		this->_res_allocated = false;
-	}
 	if (PRINT_CALLS)
 		std::cout << "Intern deconstractor called" << std::endl;
 	return;
@@ -31,19 +25,8 @@ Intern& Intern::operator = ( Intern const& obj ) {
 		std::cout << "Intern copy assignment called" << std::endl;
 	this->_formName = obj.getFName();
 	this->_targetName = obj.getTName();
-	this->_res = obj.getForm();
-	this->_res_allocated = obj.getAlloc();
 	return *this;
 }
-
-bool Intern::getAlloc ( void ) const {
-	return this->_res_allocated;
-}
-
-Form* Intern::getForm ( void ) const {
-	return this->_res;
-}
-
 
 std::string Intern::getFName ( void ) const {
 	return this->_formName;
@@ -53,11 +36,8 @@ std::string Intern::getTName ( void ) const {
 	return this->_targetName;
 }
 
+
 Form* Intern::makeForm ( std::string form, std::string target ) {
-	if ( this->_res_allocated ) {
-		delete this->_res;
-		this->_res_allocated = false;
-	}
 	Form* res = NULL;
 
 	std::string quiry[3] = { 
@@ -83,16 +63,9 @@ Form* Intern::makeForm ( std::string form, std::string target ) {
 		res = new ShrubberyCreationForm( target );
 		break;
 	default:
-		throw InternGenerate();
-		std::cout << form << std::endl;
-		return NULL;
+		std::cout << "Can't create Intern  " << form << std::endl; 
+		return res;
 	}
-	this->_res = res;
-	this->_res_allocated = true;
 	std::cout << "Intern creates " << form << std::endl; 
 	return res;
-}
-
-const char* Intern::InternGenerate::what() const throw () {
-	return ("Can't create Intern  ");
 }

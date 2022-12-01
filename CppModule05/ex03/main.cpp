@@ -1,28 +1,30 @@
 #include "Intern.hpp"
 
 
-int main ( void ) {
-
+void makeIt( std::string target)
+{
 	Intern someRandomIntern;
 	Form* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+	Bureaucrat a("Mimi", 10);
 
-	{
-		Intern someRandomIntern;
-		Form* rrf1;
-		rrf1 = someRandomIntern.makeForm("presidential pardon", "Bender");
+	try {
+		rrf = someRandomIntern.makeForm( target, "Bender" );
+		rrf->beSigned( a );
+		rrf->execute( a );
+		// rrf = someRandomIntern.makeForm( "sf", "Bender" );
+		// delete rrf;
+	} catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
 	}
+	std::cout << "\n" << "*****************************************************" << "\n\n";
+}
 
-	{
-		Intern someRandomIntern;
-		Form* rrf2;
-		rrf2 = someRandomIntern.makeForm("shrubbery creation", "Bender");
-	}
-	
-	{
-		Intern someRandomIntern;
-		Form* rrf3;
-		rrf3 = someRandomIntern.makeForm("tuo tuo", "Bender");
-	}
+int main ( void ) {
+
+	makeIt( "shrubbery creation" );
+	makeIt( "robotomy request" );
+	makeIt( "presidential pardon" );
+	makeIt( "tuo tuo" );
+
 	return 0;
 }

@@ -21,6 +21,13 @@ void setBureaucratUp( Bureaucrat& ali, bool up )
 
 int main ( void ) {
 
+	try {
+		Bureaucrat ali("ali", 0);
+	}
+	catch (std::exception &e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	Bureaucrat ali("ali", 2);
 	// valide test:
 	try {

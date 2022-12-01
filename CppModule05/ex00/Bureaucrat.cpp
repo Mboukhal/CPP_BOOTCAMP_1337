@@ -15,6 +15,10 @@ Bureaucrat::Bureaucrat ( Bureaucrat const& obj )
 Bureaucrat::Bureaucrat ( std::string name, int grade )
 : _name(name), _grade(grade) {
 	std::cout << "Bureaucrat parameterized constractor called" << std::endl;
+	if ( grade >= LOW_GRADE )
+		throw Bureaucrat::GradeTooLowException();
+	if ( grade <= HIGH_GRADE )
+		throw GradeTooHighException();
 	return;
 }
 
@@ -38,7 +42,7 @@ void Bureaucrat::incGrade ( void ) {
 	if ( (this->_grade - 1) >= HIGH_GRADE )
 		this->_grade--;
 	else
-		throw Bureaucrat::GradeTooHighException();
+		throw GradeTooHighException();
 }
 
 void Bureaucrat::decGrade ( void ) {
@@ -47,10 +51,6 @@ void Bureaucrat::decGrade ( void ) {
 	else
 		throw Bureaucrat::GradeTooLowException();
 }
-
-// Bureaucrat::GradeTooHighException::GradeTooHighException () { return; }
-
-// Bureaucrat::GradeTooLowException::GradeTooLowException () { return; }
 
 const char* Bureaucrat::GradeTooLowException::what () const throw() {
 	return "\e[31m150 is a lowet grade can be obtained by Bureaucrat!\e[0m";

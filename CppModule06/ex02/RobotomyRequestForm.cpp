@@ -42,12 +42,12 @@ RobotomyRequestForm& RobotomyRequestForm::operator = ( RobotomyRequestForm& obj 
 
 bool RobotomyRequestForm::execute ( Bureaucrat const& executor ) const {
 	if ( this->getState() && this->getGradeRequiredExecution() >= executor.getGrade() ) {
-		std::cout << "Makes some drilling noises.\n"
+		std::cout << "Makes some drilling noises. Then, informs that "
 				  << this->_target
-				  << " has been robotomized successfully 50\% of the time." << std::endl;
+				  << " has been robotomized successfully 50\% of the time."
+				  << "Otherwise, informs that the robotomy failed." << std::endl;
 		return true;
 	} else {
-		std::cout << "the robotomy failed. ";
 		if ( !this->getState() && this->getGradeRequired() > executor.getGrade() ){
 			std::cerr << executor.getName() << " Not signed to "
 					<< this->getName() << std::endl;

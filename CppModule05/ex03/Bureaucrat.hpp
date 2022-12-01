@@ -17,16 +17,11 @@ private:
 public:
 	class GradeTooHighException : public std::exception {
 	public:
-		virtual const char* what() const throw() {
-			return "\e[31mToo High Grade!\e[0m";
-		}
+		virtual const char* what() const throw();
 	};
-
 	class GradeTooLowException : public std::exception {
 	public:
-		virtual const char* what() const throw() {
-			return "\e[31mToo Low Grade!\e[0m";
-		}
+		virtual const char* what() const throw();
 	};
 
 	Bureaucrat				( void );

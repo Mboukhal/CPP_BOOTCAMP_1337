@@ -11,7 +11,7 @@ _gradeRequiredExecution( 1 ) {
 }
 
 Form::Form ( Form const& obj ) :
-_name(obj._name),
+_name(obj.getName()),
 _signed(false),
 _gradeRequired( obj.getGradeRequired() ),
 _gradeRequiredExecution( obj.getGradeRequiredExecution() ) {
@@ -27,17 +27,12 @@ _gradeRequired( req ),
 _gradeRequiredExecution( exec ) {
 	if (PRINT_CALLS)
 		std::cout << "Form set constractor called" << std::endl;
-	if ( req >= LOW_GRADE || exec >= LOW_GRADE )
-		throw GradeTooLowException();
-	if ( req <= HIGH_GRADE || exec <= HIGH_GRADE )
-		throw GradeTooHighException();
 	return;
 }
 
 Form::~Form ( void ) {
 	if (PRINT_CALLS)
 		std::cout << "Form deconstractor called" << std::endl;
-
 	return;
 }
 
