@@ -66,3 +66,11 @@ std::ostream& operator << ( std::ostream& OUT, const Form& f ) {
 		<< std::endl;
 	return OUT;
 }
+
+const char* Form::GradeTooLowException::what() const throw() {
+	return ("\e[32mGrade Too Low!\e[0m");
+}
+
+const char* Form::GradeTooHighException::what() const throw() {
+	return ("\e[32mGrade Too High!\e[0m");
+}
