@@ -1,12 +1,16 @@
 .DEFAULT_GOAL	= all
 
-NAME 			= 28B
+NAME 			= identifyRealType
 CCFLAGS			= c++ -Wall -Wextra -Werror -std=c++98
 
-CFILES			= main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp \
-				RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+CFILES			= main.cpp utils.cpp
 
 OBJS			= $(CFILES:.cpp=.o)
+
+LINE 			= python3 -c "import os;s = (str)('./$(NAME)'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
+					print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
+BLINE			= python3 -c "import os;s = (str)('Press enter to fclean and reset shell ...'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
+	  				print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
 
 all : $(NAME)
 
@@ -27,12 +31,9 @@ re: fclean all
 
 run: all
 	@ clear
-	@ python3 -c "import os;s = (str)('./$(NAME)'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
-	  print(('.' * (sizeLine - (len(s) + 4))) + ' [' + s + '] ' + ('.' * (sizeLine)))"
+	@ $(LINE)
 	@ ./$(NAME)
-	@ python3 -c "import os;s = (str)('./$(NAME) exit'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
-	  print(('.' * (sizeLine - 15)) + ' [' + s + '] ' + ('.' * (sizeLine)) + '\n')"
-	@ printf "Press enter to fclean and reset shell ..."
+	@ $(BLINE)
 	@ read
 	@ make fclean
 	@ reset
