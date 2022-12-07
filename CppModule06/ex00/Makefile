@@ -5,7 +5,7 @@ NAME 			= ConversionOfScalarTypes
 C++				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98
 
-CFILES			= main.cpp Conversion.cpp
+CFILES			= main.cpp 
 
 OBJS			= $(CFILES:.cpp=.o)
 
@@ -46,11 +46,11 @@ run: all
 	@ $(LINE)
 	./$(NAME) -inf
 	@ $(LINE)
-	./$(NAME) 546.001
+	./$(NAME) 546.12
 	@ $(BLINE)
-	# @ read
 	@ make fclean
-	# @ reset
+	@ read
+	@ reset
 
 
 .PHONY: fclean clean re all run

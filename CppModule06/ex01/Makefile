@@ -5,7 +5,7 @@ NAME 			= Serialization
 C++				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98
 
-CFILES			= main.cpp 
+CFILES			= main.cpp serial.cpp
 
 OBJS			= $(CFILES:.cpp=.o)
 
