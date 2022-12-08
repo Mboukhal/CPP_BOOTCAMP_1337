@@ -3,7 +3,7 @@
 NAME 			= identifyRealType
 CCFLAGS			= c++ -Wall -Wextra -Werror -std=c++98
 
-CFILES			= main.cpp utils.cpp
+CFILES			= main.cpp utils.cpp Base.cpp
 
 OBJS			= $(CFILES:.cpp=.o)
 

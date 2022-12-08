@@ -11,8 +11,6 @@ int main ( void ) {
 
 	Data *reciver = deserialize( serialData );
 	std::cout << *reciver << std::endl;
-
-
 	
 	return 0;
 }

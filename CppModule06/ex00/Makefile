@@ -38,19 +38,22 @@ ARG = 4246546546546546.0f
 run: all
 	@ clear
 	@ $(LINE)
+	@ echo
 	./$(NAME) 42
 	@ $(LINE)
+	@ echo
 	./$(NAME) 42.0f
 	@ $(LINE)
+	@ echo
 	./$(NAME) nan
 	@ $(LINE)
+	@ echo
 	./$(NAME) -inf
 	@ $(LINE)
+	@ echo
 	./$(NAME) 546.12
-	@ $(BLINE)
 	@ make fclean
-	@ read
-	@ reset
+	@ $(BLINE)
 
 
 .PHONY: fclean clean re all run
