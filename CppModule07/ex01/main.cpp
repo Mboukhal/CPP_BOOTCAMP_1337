@@ -1,16 +1,28 @@
-#include "serial.hpp"
+#include <iostream>
+#include "iter.hpp"
+
+template <typename T>
+void iter ( T* Array, long long const arrayLangth, void ( *func )( T const& ) ) {
+	for ( long long i = 0; i < arrayLangth; i++ )
+		func( Array[i] );
+}
+
+template <typename T>
+void print( T const& ptr ) {
+	std::cout << ptr << " " ;
+}
 
 int main ( void ) {
 
-	Data info = { 'c', "hi World!", 42 };
+	int x[ 4 ] = { 10, 20, 30, 40 };
 
-	std::cout << info << std::endl;
-	uintptr_t serialData = serialize( &info );
+	::iter( x, 4, print );
+	std::cout << std::endl;
 
-	std::cout << (char *)serialData << std::endl;
+	char c[ 5 ] = { 'A', 'B', 'C', 'D', 'E' };
 
-	Data *reciver = deserialize( serialData );
-	std::cout << *reciver << std::endl;
-	
+	::iter( c, 5, print );
+	std::cout << std::endl;
+
 	return 0;
 }

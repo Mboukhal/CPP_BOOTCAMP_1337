@@ -1,53 +1,56 @@
-#include "utils.hpp"
+#include <iostream>
+#include "Array.hpp"
 
-// void tmp( void ){
+#define MAX_VAL 750
+int main(int, char**)
+{
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
+		// std::cout << value << std::endl;
+    }
+    //SCOPE
+    {
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
+    }
 
-	// int res = 1;
-	// identify( reinterpret_cast<Base*>(res) );
-	// std::cout << "\n---------------------------\n" ;
-	// Base *res2 = new B();
-	// identify( *res2 );
-	// delete res2;
-	// std::cout << "\n---------------------------\n" ;
-	// Base *res3 = new C();
-	// identify( *res3 );
-	// delete res3;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if ( mirror[i] != numbers[i] )
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
+		// else 
+        //     std::cout << "has the same value" << std::endl;
+    }
+    try
+    {
+        numbers[-2] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-	// std::cout << "\n---------------------------\n" ;
-	// std::cout << "\n---------------------------\n" ;
-	// std::cout << "\n---------------------------\n" ;
-	
-	// Base *res4 = new A();
-	// identify( res4 );
-	// delete res4;
-	// std::cout << "\n---------------------------\n" ;
-	// Base *res5 = new B();
-	// identify( res5 );
-	// delete res5;
-	// std::cout << "\n---------------------------\n" ;
-	// Base *res6 = new C();
-	// identify( res6 );
-	// delete res6;
-	// std::cout << "\n---------------------------\n" ;
-// }
-
-int main ( void ) {
-
-	std::cout << "<--------[Pointer]--------->\n\n" ;
-	for ( int i = 0; i < 10; i++ ) {
-		Base *resPtr = generate();
-		identify( resPtr );
-		std::cout << std::endl;
-		delete resPtr;
-	}
-
-	std::cout << "\n<--------[Refrance]--------->\n\n" ;
-	for ( int i = 0; i < 10; i++ ) {
-		Base *res = generate();
-		identify( *res );
-		std::cout << std::endl;
-		delete res;
-	}
-	
-	return 0;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = rand();
+    }
+    delete [] mirror;//
+    return 0;
 }

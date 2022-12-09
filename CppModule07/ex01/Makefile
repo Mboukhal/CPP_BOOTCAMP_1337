@@ -1,18 +1,18 @@
 .DEFAULT_GOAL	= all
 
-NAME 			= Serialization
+NAME 			= iter
 
 C++				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98
 
-CFILES			= main.cpp serial.cpp
+CFILES			= main.cpp 
 
 OBJS			= $(CFILES:.cpp=.o)
 
 LINE 			= python3 -c "import os;s = (str)('./$(NAME)'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
 					print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
 BLINE			= python3 -c "import os;s = (str)('Press enter to fclean and reset shell ...'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
-	  				print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
+	  				print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)) + '\n')"
 
 all : $(NAME)
 
@@ -35,10 +35,11 @@ re: fclean all
 run: all
 	@ clear
 	@ $(LINE)
-	@ ./$(NAME)
+	./$(NAME)
+	@ make fclean
 	@ $(BLINE)
 	@ read
-	@ make fclean
 	@ reset
+
 
 .PHONY: fclean clean re all run

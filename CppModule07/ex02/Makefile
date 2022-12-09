@@ -1,24 +1,26 @@
 .DEFAULT_GOAL	= all
 
-NAME 			= identifyRealType
-CCFLAGS			= c++ -Wall -Wextra -Werror -std=c++98
+NAME 			= Array
 
-CFILES			= main.cpp utils.cpp Base.cpp
+C++				= c++
+CFLAGS			= -Wall -Wextra -Werror -std=c++98
+
+CFILES			= main.cpp 
 
 OBJS			= $(CFILES:.cpp=.o)
 
 LINE 			= python3 -c "import os;s = (str)('./$(NAME)'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
 					print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
 BLINE			= python3 -c "import os;s = (str)('Press enter to fclean and reset shell ...'); sizeLine=((int)((os.get_terminal_size().columns) / 2)); \
-	  				print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)))"
+	  				print(('.' * ((sizeLine - (int)((len(s) + 4) / 2)))) + ' [' + s + '] ' + ('.' * ((sizeLine) - (int)((len(s) + 4) / 2) - 1)) + '\n')"
 
 all : $(NAME)
 
 .cpp.o:
-	@ $(CCFLAGS) -c $< -o $@
+	@ $(C++) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@ $(CCFLAGS) $(OBJS) -o $(NAME)
+	@ $(C++) $(OBJS) -o $(NAME)
 	@ echo "Use 'make run' for easy life"
 
 clean:
@@ -28,14 +30,15 @@ fclean: clean
 	@ $(RM) -rf $(NAME) 
 	
 re: fclean all
+	@ echo "\"Make re\" has no sense when you have 'make run' :P"
 
 run: all
 	@ clear
 	@ $(LINE)
-	@ ./$(NAME)
+	./$(NAME)
+	@ make fclean
 	@ $(BLINE)
 	@ read
-	@ make fclean
 	@ reset
 
 
