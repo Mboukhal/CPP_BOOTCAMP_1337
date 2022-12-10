@@ -1,7 +1,6 @@
 #pragma once
 
-template <typename T>
-class Array {
+template <typename T> class Array {
 
 private:
 	T*					_array;
