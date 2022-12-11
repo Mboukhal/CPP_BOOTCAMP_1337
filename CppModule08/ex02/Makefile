@@ -1,6 +1,6 @@
 .DEFAULT_GOAL	= all
 
-NAME 			= Array
+NAME 			= mutatedAbomination
 
 C++				= c++
 CFLAGS			= -Wall -Wextra -Werror -std=c++98

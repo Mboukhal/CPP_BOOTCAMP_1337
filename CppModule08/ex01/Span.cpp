@@ -24,6 +24,30 @@ Span& Span::operator = ( Span const& O ) {
 	return *this;
 }
 
+static long absl( int v1, int v2 ) {
+	long t1, t2, res;
+	t1 = v1 < 0 ? (v1 * (-1)) : v1;
+	t2 = v2 < 0 ? (v2 * (-1)) : v2;
+	res = t1 > t2 ? t1 - t2 : t2 - t1;
+	return res;
+}
+
+static long iter ( std::vector<int>& data, bool status ) {
+	long res = status ? LONG_MAX : 0, tmp = 0;
+	for ( std::vector<int>::iterator it1 = data.begin(); 
+			it1 != data.end() - 1; it1++ ) {
+		for ( std::vector<int>::iterator it2 = it1 + 1; 
+				it2 != data.end(); it2++ ) {
+			tmp = ::absl( *it1, *it2 );
+			if ( status )
+				res = res > tmp ? tmp : res;
+			else
+				res = res < tmp ? tmp : res;
+		}
+	}
+	return res;
+}
+
 void Span::addNumber ( int newData )  {
 	if ( this->_data->size() < this->_n )
 		this->_data->push_back( newData );
@@ -31,44 +55,23 @@ void Span::addNumber ( int newData )  {
 		throw Span::FailSpace();
 }
 
+void Span::addMultiNumber ( int* newData, unsigned int size )  {
+	if ( this->_data->size() + size <= this->_n )
+		this->_data->insert( this->_data->end(), newData, newData + size );
+	else
+		throw Span::FailSpace();
+}
+
 unsigned int Span::shortestSpan ( void ) {
 	if ( this->_data->size() <= 1 )
 		throw Span::NoSpan();
-	unsigned int res = INT_MAX;
-	unsigned int tmp = 0;
-	for ( std::vector<int>::iterator it1 = this->_data->begin(); 
-			it1 <= this->_data->end(); it1++ ) {
-		for ( std::vector<int>::iterator it2 = it1 + 1; 
-				it2 <= this->_data->end(); it2++ ) {
-			if ( (*it1 - *it2) < 0 )
-				tmp = (*it1 - *it2) * -1;
-			else 
-				tmp = *it1 - *it2;
-			if ( res > tmp )
-				res = tmp;
-		}
-	}
-	return res;
+	return ::iter ( *this->_data, true );
 }
 
 unsigned int Span::longestSpan ( void ) {
 	if ( this->_data->size() <= 1 )
 		throw Span::NoSpan();
-	unsigned int res = INT_MAX;
-	unsigned int tmp = 0;
-	for ( std::vector<int>::iterator it1 = this->_data->begin(); 
-			it1 <= this->_data->end(); it1++ ) {
-		for ( std::vector<int>::iterator it2 = it1 + 1; 
-				it2 <= this->_data->end(); it2++ ) {
-			if ( (*it1 - *it2) < 0 )
-				tmp = (*it1 - *it2) * -1;
-			else 
-				tmp = *it1 - *it2;
-			if ( res < tmp )
-				res = tmp;
-		}
-	}
-	return res;
+	return ::iter ( *this->_data, false );
 }
 
 const char * Span::FailSpace::what() const throw() {

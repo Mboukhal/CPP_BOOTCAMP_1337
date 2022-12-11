@@ -1,56 +1,26 @@
-#include <iostream>
-#include "Array.hpp"
+#include "MutantStack.hpp"
 
-#define MAX_VAL 750
-int main(int, char**)
+int main()
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
+    MutantStack<int> mstack;
+    mstack.push(5);
+    mstack.push(17);
+    std::cout << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << mstack.size() << std::endl;
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737);
+    mstack.push(0);
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite)
     {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-		// std::cout << value << std::endl;
+        std::cout << *it << std::endl;
+        ++it;
     }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if ( mirror[i] != numbers[i] )
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-		// else 
-        //     std::cout << "has the same value" << std::endl;
-    }
-    try
-    {
-        numbers[-2] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    try
-    {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        numbers[i] = rand();
-    }
-    delete [] mirror;//
+    std::stack<int> s(mstack);
     return 0;
 }
