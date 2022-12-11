@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 template < typename T >
 bool easyfind( T& data, int find ) {
-
-	for ( typename T::iterator it = data.begin(); it != data.end(); it++ )
-		if ( *it == find )
+	if ( std::find ( data.begin(), data.end(), find ) != data.end() )
 			return true;
 	return false;
 }

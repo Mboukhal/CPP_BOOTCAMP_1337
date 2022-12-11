@@ -1,4 +1,5 @@
 #include "Span.hpp"
+#include <vector>
 
 Span::Span( void ) {
 	return;
@@ -24,27 +25,20 @@ Span& Span::operator = ( Span const& O ) {
 	return *this;
 }
 
-static long absl( int v1, int v2 ) {
-	long t1, t2, res;
-	t1 = v1 < 0 ? (v1 * (-1)) : v1;
-	t2 = v2 < 0 ? (v2 * (-1)) : v2;
-	res = t1 > t2 ? t1 - t2 : t2 - t1;
-	return res;
+static long distance( int v1, int v2 ) {
+	long t1, t2;
+	t1 = abs((long)v1);
+	t2 = abs((long)v2);
+	return t1 > t2 ? t1 - t2 : t2 - t1;
 }
 
-static long iter ( std::vector<int>& data, bool status ) {
-	long res = status ? LONG_MAX : 0, tmp = 0;
-	for ( std::vector<int>::iterator it1 = data.begin(); 
-			it1 != data.end() - 1; it1++ ) {
-		for ( std::vector<int>::iterator it2 = it1 + 1; 
-				it2 != data.end(); it2++ ) {
-			tmp = ::absl( *it1, *it2 );
-			if ( status )
-				res = res > tmp ? tmp : res;
-			else
-				res = res < tmp ? tmp : res;
+static long iter ( std::vector<int>& data ) {
+	long res = LONG_MAX, tmp;
+	for ( std::vector<int>::iterator it1 = data.begin();
+			it1 != (data.end() - 1); it1++ ) {
+			tmp = ::distance( *it1, *(it1 + 1) );
+			res = res > tmp ? tmp : res;
 		}
-	}
 	return res;
 }
 
@@ -55,7 +49,7 @@ void Span::addNumber ( int newData )  {
 		throw Span::FailSpace();
 }
 
-void Span::addMultiNumber ( int* newData, unsigned int size )  {
+void Span::addNumbers ( int* newData, unsigned int size )  {
 	if ( this->_data->size() + size <= this->_n )
 		this->_data->insert( this->_data->end(), newData, newData + size );
 	else
@@ -65,13 +59,19 @@ void Span::addMultiNumber ( int* newData, unsigned int size )  {
 unsigned int Span::shortestSpan ( void ) {
 	if ( this->_data->size() <= 1 )
 		throw Span::NoSpan();
-	return ::iter ( *this->_data, true );
+	std::vector<int> tmp( *this->_data );
+	std::sort( tmp.begin(), tmp.end() );
+	return ::iter( tmp );
 }
 
 unsigned int Span::longestSpan ( void ) {
 	if ( this->_data->size() <= 1 )
 		throw Span::NoSpan();
-	return ::iter ( *this->_data, false );
+	int max, min;
+	max = *std::max_element ( this->_data->begin(), this->_data->end() );
+	min = *std::min_element ( this->_data->begin(), this->_data->end() );
+	unsigned int minAbs = abs( (long) min );
+	return (min < 0 ? max + minAbs : max - minAbs);
 }
 
 const char * Span::FailSpace::what() const throw() {

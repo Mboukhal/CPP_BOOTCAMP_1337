@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <list>
+#include <algorithm>
 
 class Span {
 private:
@@ -15,11 +15,11 @@ public:
 	~Span						( void );
 	Span& operator =			( Span const& );
 
+public:
 	void addNumber 				( int ) ;
-	void addMultiNumber 		( int*, unsigned int ) ;
+	void addNumbers 			( int*, unsigned int ) ;
 	unsigned int shortestSpan	( void );
 	unsigned int longestSpan	( void );
-
 	class FailSpace : public std::exception {
 	public:
 		virtual const char * what()const throw();

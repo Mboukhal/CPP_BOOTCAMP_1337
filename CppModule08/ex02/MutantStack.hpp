@@ -9,18 +9,10 @@ public:
 	typedef typename std::stack<T>::container_type::iterator	iterator;
 
 public:
-	MutantStack( void ) {
-		return;
-	}
-	MutantStack( MutantStack const& s) {
-		*this = s;
-	}
-	~MutantStack() {
-		return;
-	}
-	MutantStack& operator = ( MutantStack const& s) {
-		return s;
-	}
+	MutantStack( void ) { return; }
+	MutantStack( MutantStack& ) { return; }
+	~MutantStack() { return; }
+	MutantStack& operator = ( MutantStack& ) { return; }
 
 public:
 	iterator begin() {

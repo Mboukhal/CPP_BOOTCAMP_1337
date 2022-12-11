@@ -3,13 +3,13 @@
 int main ( void ) {
 
 	Span sp = Span(5);
-	sp.addNumber(80);
+	sp.addNumber(0);
 	sp.addNumber(3);
 	sp.addNumber(17);
 	sp.addNumber(10);
-	sp.addNumber(9);
-	// int x[] = {80, 3, 17, 10, 9};
-	// sp.addMultiNumber( x, 5 );
+	sp.addNumber(90);
+	// int x[] = {0, 3, 17, 10, 20};
+	// sp.addNumbers( x, 5 );
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
 	try {
