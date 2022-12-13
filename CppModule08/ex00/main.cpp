@@ -6,7 +6,7 @@ int main( void )
     std::vector<int> array( 20 );
     srand( time( NULL ) );
     for ( int i = 0; i < (int)array.size(); i++ ){
-        array[i] = rand() % 21;                         // random value range [0 - 20]
+        array[i] = rand() % 21;                                             // random value range [0 - 20]
         if ( array[i] == findNumber )
             std::cout << "\e[41m" << array[i] << "\e[0m ";
         else
